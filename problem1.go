@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+const num_threads = 2
+
 func sum(inf, sup uint64, c chan uint64) {
   var sum uint64 = 0
 	for i := inf; i < sup; i++ {
@@ -14,7 +16,6 @@ func sum(inf, sup uint64, c chan uint64) {
 
 func multi_thread_solver(limit uint64) (total uint64) {
   c := make(chan uint64)
-  num_threads := 2
   for i := 0; i < num_threads; i++ {
     inf := 1 +   uint64(i) * (limit - 1)/uint64(num_threads)
     sup := 1 + uint64(i+1) * (limit - 1)/uint64(num_threads)

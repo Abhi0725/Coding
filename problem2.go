@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+const num_receivers := 2
+
 func fibonacci_producer(limit uint64, ch chan uint64) {
 	var last, next uint64 = 1, 1
 	for next <= limit {
@@ -41,7 +43,6 @@ func even_receiver(id int, ch chan uint64, output chan uint64) {
 
 func main() {
 	var limit uint64 = 4000000
-	num_receivers := 2
 	ch := make(chan uint64)
 	output := make(chan uint64)
 	go even_fibonacci_producer(limit, ch)
