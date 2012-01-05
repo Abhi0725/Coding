@@ -14,17 +14,10 @@ func solve(limit int) int {
 	solution := 1
 	for i, v := range(numbers) {
 		if v > 1 {
-			max_fact := 0
+			solution *= v
 			for j := i; j < limit; j += v {
-				m := v
-				for numbers[j] /= v; numbers[j] % v == 0; numbers[j] /= v {
-					m *= v
-				}
-				if m > max_fact {
-					max_fact = m
-				}
+				numbers[j] /= v
 			}
-			solution *= max_fact
 		}
 	}
 	return solution
