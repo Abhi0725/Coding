@@ -43,7 +43,7 @@ func prime_factors(value uint64) ([]int, []int) {
 			pow = append(pow, p)
 		}
 	}
-	if value > 1 {  // not that sure about this...
+	if value > 1 {
 		factors = append(factors, int(value))
 		pow = append(pow, 1)
 	}
