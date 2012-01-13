@@ -61,7 +61,7 @@ func count_ndigits(x uint64) int {
 }
 
 func main() {
-	const n = 10
+	const n_digits = 10
 	contents, err := ioutil.ReadFile("input13.txt")
 	if err != nil {
 		fmt.Printf("Error opening file: %v", err)
@@ -70,5 +70,5 @@ func main() {
   numbers := strings.Fields(string(contents))
 	converted := conv_to_digits(numbers)
 	str := conv_to_string(adder(converted))
-	fmt.Println(str[0:10])
+	fmt.Println(str[0:n_digits])
 }
