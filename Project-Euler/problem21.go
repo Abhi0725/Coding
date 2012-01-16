@@ -8,30 +8,42 @@ package main
 
 import "fmt"
 
-func sum_of_divisors(first, last int) []int {
+type SumOfDivisors []int
+
+func (sum SumOfDivisors) sum_of_divisors(first, last, offset int, ch chan int) {
 	limit := last/2
-	sum := make([]int, last - first + 1)
 	for i := 1; i <= limit; i++ {
-		for j := first; j <= last; j++ {
+		for j := first; j < last; j++ {
 			if j > i && j % i == 0 {
-				sum[j - first] += i
+				sum[j - offset] += i
 			}
 		}
 	}
-	return sum
+	fmt.Printf("Done [%d, %d)\n", first, last)
+	ch <- 1
 }
 
 
 func main() {
 	const first, last = 1, 10000
-	sum_of_divisors := sum_of_divisors(first, last)
+	const n_threads = 4
+	ch := make(chan int)
+	sum_of_div := make(SumOfDivisors, last-first+1)
+	for i := 0; i < n_threads; i++ {
+		f := first + i * (last-first+1)/n_threads
+		e := first + (i+1) * (last-first+1)/n_threads
+		go sum_of_div.sum_of_divisors(f, e, first, ch)
+	}
+	for i := 0; i < n_threads; i++ {
+		<- ch
+	}
 	sum := 0
-	for i_a, b := range(sum_of_divisors) {
+	for i_a, b := range(sum_of_div) {
 		a, i_b := i_a + first, b - first
-		if a != b && i_b >= 0 && i_b < len(sum_of_divisors) &&  sum_of_divisors[i_b] == a {
+		if a != b && i_b >= 0 && i_b < len(sum_of_div) &&  sum_of_div[i_b] == a {
 			sum += a
 		}
 	}
-	fmt.Println(sum)
+	fmt.Printf("The sum of all amicable pairs within [%d, %d] is %d\n", first, last, sum)
 }
 
