@@ -1,11 +1,4 @@
-// Problem 30
-// Surprisingly there are only three numbers that can be written as the sum of fourth powers of their digits:
-// 1634 = 14 + 64 + 34 + 44
-// 8208 = 84 + 24 + 04 + 84
-// 9474 = 94 + 44 + 74 + 44
-// As 1 = 14 is not a sum it is not included.
-// The sum of these numbers is 1634 + 8208 + 9474 = 19316.
-// Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
+// Problem 34
 
 package main
 
@@ -14,15 +7,13 @@ import (
 	"math"
 )
 
-func pre_compute_powers(power int) []uint64 {
-	powers := make([]uint64, 10)
-	for i := range(powers) {
-		powers[i] = uint64(i)
-		for j := 1; j < power; j++ {
-			powers[i] *= uint64(i)
-		}
+func pre_compute_factorial() []uint64 {
+	factorial := make([]uint64, 10)
+	factorial[0] = uint64(1)
+	for n := 1; n < len(factorial); n++ {
+		factorial[n] = uint64(n) * factorial[n-1]
 	}
-	return powers
+	return factorial
 }
 
 func find_upper_bound(max_per_digit float64) int {
@@ -36,9 +27,9 @@ func find_upper_bound(max_per_digit float64) int {
 	return -1  // never gets here
 }
 
-func find_numbers(power int) []uint64 {
-	pow := pre_compute_powers(power)
-	n_digits := find_upper_bound(float64(pow[9]))
+func find_numbers() []uint64 {
+	factorial := pre_compute_factorial()
+	n_digits := find_upper_bound(float64(factorial[9]))
 	output := make([]uint64, 0, 1000)
 	var rec_find_numbers func(sum, number uint64, d int)
 	rec_find_numbers = func(sum, number uint64, d int) {
@@ -47,7 +38,7 @@ func find_numbers(power int) []uint64 {
 			if d == 0 { start = 1 }
 			for digit := start; digit <= 9; digit++ {
 				new_number := number*10 + uint64(digit)
-				new_sum := sum + pow[digit]
+				new_sum := sum + factorial[digit]
 				if d > 0 && new_number == new_sum {
 					output = output[0:len(output)+1]
 					output[len(output)-1] = new_number
@@ -62,12 +53,11 @@ func find_numbers(power int) []uint64 {
 }
 
 func main() {
-	const power = 5
-	numbers := find_numbers(power)
+	numbers := find_numbers()
 	var sum uint64 = 0
 	for _, n := range(numbers) {
 		sum += n
 	}
-	fmt.Printf("The sum of all the numbers that can be written as the sum of %dth power of their digits is %v.\n", power, sum)
+	fmt.Printf("The sum of all the numbers which are equal to the sum of the factorial of their digits is %v.\n", sum)
 	fmt.Printf("And the numbers are: %v.\n", numbers)
 }
