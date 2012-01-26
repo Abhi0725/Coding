@@ -46,8 +46,7 @@ func adder(numbers [][]int) []int {
 		result[i] = result[i] % 10
 	}
 	for i := n; carry > 0; i++ {
-		result = result[0:len(result) + 1]
-		result[i], carry = carry % 10, carry/10
+		result, carry = append(result, carry%10), carry/10
 	}
 	return reverse(result)
 }

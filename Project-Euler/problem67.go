@@ -29,8 +29,7 @@ func read_input(filename string) [][]int64 {
 	bfile := bufio.NewReader(file)
 	line, err := bfile.ReadString('\n')
 	for i := 0; err != os.EOF; i++ {
-		triangle = triangle[0:i+1]
-		triangle[i] = make([]int64, i+1)
+		triangle = append(triangle, make([]int64, i+1))
 		fields := strings.Fields(line)
 		if len(fields) != i + 1 {
 			log.Fatalln(fmt.Sprintf("Found %d fields on line %d. Expected %d.", len(fields), i+1, i+1))

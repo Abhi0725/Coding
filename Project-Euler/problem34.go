@@ -42,8 +42,7 @@ func find_numbers() []uint64 {
 				new_number := number*10 + uint64(digit)
 				new_sum := sum + factorial[digit]
 				if d > 0 && new_number == new_sum {
-					output = output[0:len(output)+1]
-					output[len(output)-1] = new_number
+					output = append(output, new_number)
 				}
 				rec_find_numbers(new_sum, new_number, d+1)
 			}
