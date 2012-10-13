@@ -12,7 +12,7 @@ object Sieve {
     primes(ints(2)) take n toList
 }
 
-object P69 {
+object ProjectEuler {
   def primorial(primes: List[Int], limit: Int): Int = {
     def rec(primes: List[Int], product: Int): Int =
       primes match {
