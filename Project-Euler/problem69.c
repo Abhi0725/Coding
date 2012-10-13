@@ -31,17 +31,14 @@ void fill_crivo() {
 }
 
 int main() {
-  unsigned long p, value, primorial;
+  unsigned long p, primorial;
   unsigned long lim = LIM;
   fill_crivo();
 
-  primorial = value = 1;
-  for (p = 2; primorial * p < lim; p++) {
-    if (crivo[p]) {
+  primorial = 1;
+  for (p = 2; primorial * p < lim; p++)
+    if (crivo[p])
       primorial *= p;
-      value *= p / (p - 1);
-    }
-  }
   printf("%lu\n", primorial);
   return 0;
 }
