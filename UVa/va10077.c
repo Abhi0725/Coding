@@ -1,3 +1,8 @@
+// Idea:
+// A fraction m/n is on the left side (sequence starts w/L) if and only if n > m.
+// To understand how to continue this process, you can try to match the left or
+// right subtrees with the root. Eventually this leads to Euclid's gcd algorithm.
+
 #include <stdio.h>
 
 int main() {
