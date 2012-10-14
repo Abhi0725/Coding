@@ -7,23 +7,23 @@ package main
 
 import "fmt"
 
-func make_crivo(limit int) []bool {
-	crivo := make([]bool, limit + 1)
-	for i := range(crivo) {
-		crivo[i] = true
+func make_sieve(limit int) []bool {
+	sieve := make([]bool, limit + 1)
+	for i := range(sieve) {
+		sieve[i] = true
 	}
-	crivo[0], crivo[1] = false, false
-	for i, v := range(crivo) {
+	sieve[0], sieve[1] = false, false
+	for i, v := range(sieve) {
 		if v {
 			for j := 2 * i; j <= limit; j += i {
-				crivo[j] = false
+				sieve[j] = false
 			}
 		}
 	}
-	return crivo
+	return sieve
 }
 
-func try_all_quadratics(crivo []bool, limit int) (int, int, int) {
+func try_all_quadratics(sieve []bool, limit int) (int, int, int) {
 	n, max, max_a, max_b := 0, -1, 0, 0
 	for a := -limit; a <= limit; a++ {
 		for b := -limit; b <= limit; b++ {
@@ -32,7 +32,7 @@ func try_all_quadratics(crivo []bool, limit int) (int, int, int) {
 			}
 			for n = 0;  ; n++ {
 				v := n * n + a * n + b
-				if v < 2 || !crivo[v] {
+				if v < 2 || !sieve[v] {
 					break
 				}
 			}
@@ -47,9 +47,9 @@ func try_all_quadratics(crivo []bool, limit int) (int, int, int) {
 
 func main() {
 	const limit = 1000
-	const crivo_limit = 101010
-	crivo := make_crivo(crivo_limit)
-	max, max_a, max_b := try_all_quadratics(crivo, limit - 1)
+	const sieve_limit = 101010
+	sieve := make_sieve(sieve_limit)
+	max, max_a, max_b := try_all_quadratics(sieve, limit - 1)
 	fmt.Printf("n^2 + (%d)*n + (%d) produces %d consecutive primes for n >= 0.\n", max_a, max_b, max)
 	fmt.Printf("a * b = %v\n", max_a * max_b)
 }

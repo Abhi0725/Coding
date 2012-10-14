@@ -6,28 +6,28 @@ package main
 
 import "fmt"
 
-func make_crivo(limit int) []bool {
-	crivo := make([]bool, limit + 1)
-	for i := range(crivo) {
-		crivo[i] = true
+func make_sieve(limit int) []bool {
+	sieve := make([]bool, limit + 1)
+	for i := range(sieve) {
+		sieve[i] = true
 	}
-	crivo[0], crivo[1] = false, false
-	for i, v := range(crivo) {
+	sieve[0], sieve[1] = false, false
+	for i, v := range(sieve) {
 		if v {
 			for j := 2 * i; j <= limit; j += i {
-				crivo[j] = false
+				sieve[j] = false
 			}
 		}
 	}
-	return crivo
+	return sieve
 }
 
 func main() {
 //	const limit = 10
 	const limit = 2000000
-	crivo := make_crivo(limit - 1)
+	sieve := make_sieve(limit - 1)
 	var sum uint64 = 0
-	for i, v := range(crivo) {
+	for i, v := range(sieve) {
 		if v {
 			sum += uint64(i)
 		}

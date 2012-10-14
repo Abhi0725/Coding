@@ -17,25 +17,25 @@ package main
 
 import "fmt"
 
-func make_crivo(limit int) []bool {
-	crivo := make([]bool, limit + 1)
-	for i := range(crivo) {
-		crivo[i] = true
+func make_sieve(limit int) []bool {
+	sieve := make([]bool, limit + 1)
+	for i := range(sieve) {
+		sieve[i] = true
 	}
-	crivo[0], crivo[1] = false, false
-	for i, v := range(crivo) {
+	sieve[0], sieve[1] = false, false
+	for i, v := range(sieve) {
 		if v {
 			for j := 2 * i; j <= limit; j += i {
-				crivo[j] = false
+				sieve[j] = false
 			}
 		}
 	}
-	return crivo
+	return sieve
 }
 
-func how_many_prime_factors(crivo []bool, value uint64) (uint64) {
+func how_many_prime_factors(sieve []bool, value uint64) (uint64) {
 	var count uint64 = 1
-	for i, v := range(crivo) {
+	for i, v := range(sieve) {
 		if value == 1 {
 			return count
 		}
@@ -53,10 +53,10 @@ func how_many_prime_factors(crivo []bool, value uint64) (uint64) {
 func main() {
 	const target = 500
 	const limit = 200000
-	crivo := make_crivo(limit - 1)
+	sieve := make_sieve(limit - 1)
 	for i, S := 1, 0; true; i++ {
 		S += i
-		div := how_many_prime_factors(crivo, uint64(S))		
+		div := how_many_prime_factors(sieve, uint64(S))
 //		fmt.Printf("%6d -> %10d: %4d divisors\n", i, S, div)
 		if div > target {
 			fmt.Printf("Found: %d, the %dth triangle number, is the first to have more than %d divisors: it has %d divisors.\n",

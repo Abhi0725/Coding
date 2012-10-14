@@ -7,24 +7,24 @@ package main
 import "fmt"
 import "math"
 
-func make_crivo(limit int) []bool {
-	crivo := make([]bool, limit + 1)
-	for i := range(crivo) {
-		crivo[i] = true
+func make_sieve(limit int) []bool {
+	sieve := make([]bool, limit + 1)
+	for i := range(sieve) {
+		sieve[i] = true
 	}
-	crivo[0], crivo[1] = false, false
-	for i, v := range(crivo) {
+	sieve[0], sieve[1] = false, false
+	for i, v := range(sieve) {
 		if v {
 			for j := 2 * i; j <= limit; j += i {
-				crivo[j] = false
+				sieve[j] = false
 			}
 		}
 	}
-	return crivo
+	return sieve
 }
 
-func print_crivo(crivo []bool) {
-	for i, v := range(crivo) {
+func print_sieve(sieve []bool) {
+	for i, v := range(sieve) {
 //		fmt.Printf("%3d: %v\n", i, v)
 		if v {
 			fmt.Printf("\t%4d", i)
@@ -33,9 +33,9 @@ func print_crivo(crivo []bool) {
 	fmt.Printf("\n")	
 }
 
-func found_ith_prime(crivo []bool, i int) (int, bool) {
+func found_ith_prime(sieve []bool, i int) (int, bool) {
 	count := 0
-	for j, v := range(crivo) {
+	for j, v := range(sieve) {
 		if v {
 			count++
 			if count == i {
@@ -49,8 +49,8 @@ func found_ith_prime(crivo []bool, i int) (int, bool) {
 func main() {
 	const target = 10001
 	limit := int(1.5 * target * math.Log(target))
-	crivo := make_crivo(limit)
-	value, found := found_ith_prime(crivo, target)
+	sieve := make_sieve(limit)
+	value, found := found_ith_prime(sieve, target)
 	if found {
 		fmt.Printf("The %dth prime number is %d\n", target, value)
 	} else {

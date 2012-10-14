@@ -14,30 +14,30 @@
  #define LIM 1000000
 #endif
 
-#define MAX_CRIVO (1024)
+#define MAX_SIEVE (1024)
 
-char crivo[MAX_CRIVO];
+char sieve[MAX_SIEVE];
 
-void fill_crivo() {
+void fill_sieve() {
   int i, j;
-  memset(crivo, 0, sizeof(crivo));
-  crivo[0] = crivo[1] = 1;
-  for (i = 2; i < MAX_CRIVO; i++)
-    if (!crivo[i])
-      for (j = 2 * i; j < MAX_CRIVO; j += i)
-        crivo[j] = 1;
-  for (i = 0; i < MAX_CRIVO; i++)
-    crivo[i] = !crivo[i];
+  memset(sieve, 0, sizeof(sieve));
+  sieve[0] = sieve[1] = 1;
+  for (i = 2; i < MAX_SIEVE; i++)
+    if (!sieve[i])
+      for (j = 2 * i; j < MAX_SIEVE; j += i)
+        sieve[j] = 1;
+  for (i = 0; i < MAX_SIEVE; i++)
+    sieve[i] = !sieve[i];
 }
 
 int main() {
   unsigned long p, primorial;
   unsigned long lim = LIM;
-  fill_crivo();
+  fill_sieve();
 
   primorial = 1;
   for (p = 2; primorial * p < lim; p++)
-    if (crivo[p])
+    if (sieve[p])
       primorial *= p;
   printf("%lu\n", primorial);
   return 0;

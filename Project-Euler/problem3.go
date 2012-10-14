@@ -7,24 +7,24 @@ package main
 import "fmt"
 import "math"
 
-func make_crivo(limit int) []bool {
-	crivo := make([]bool, limit + 1)
-	for i := range(crivo) {
-		crivo[i] = true
+func make_sieve(limit int) []bool {
+	sieve := make([]bool, limit + 1)
+	for i := range(sieve) {
+		sieve[i] = true
 	}
-	crivo[0], crivo[1] = false, false
-	for i, v := range(crivo) {
+	sieve[0], sieve[1] = false, false
+	for i, v := range(sieve) {
 		if v {
 			for j := 2 * i; j <= limit; j += i {
-				crivo[j] = false
+				sieve[j] = false
 			}
 		}
 	}
-	return crivo
+	return sieve
 }
 
-func print_crivo(crivo []bool) {
-	for i, v := range(crivo) {
+func print_sieve(sieve []bool) {
+	for i, v := range(sieve) {
 //		fmt.Printf("%3d: %v\n", i, v)
 		if v {
 			fmt.Printf("\t%4d", i)
@@ -35,9 +35,9 @@ func print_crivo(crivo []bool) {
 
 func prime_factors(value uint64) ([]int, []int) {
 	factors, pow := []int{}, []int{}
-	crivo := make_crivo(int(math.Sqrt(float64(value))))
-//	print_crivo(crivo)
-	for i, v := range(crivo) {
+	sieve := make_sieve(int(math.Sqrt(float64(value))))
+//	print_sieve(sieve)
+	for i, v := range(sieve) {
 		if v && value % uint64(i) == 0 {
 			factors = append(factors, i)
 			p := 1
