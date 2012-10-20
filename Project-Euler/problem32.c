@@ -6,7 +6,7 @@
 #include <math.h>
 
 // Inserts all digits from n into digits_set.
-// Return 0 if n contains the digit 0 or there is a repeated digit.
+// Return 0 if n contains the digit 0 or if there is a repeated digit.
 int insert(int n, int* digits_set) {
   int success = 1, digit;
   while (n > 0) {
