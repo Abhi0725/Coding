@@ -25,7 +25,7 @@ object ProjectEuler {
   }
 
   def main(args: Array[String]) {
-    val primes = Sieve.primes_list(100)    
+    val primes = Sieve.primes_list(100)
     System.out.println(primorial(primes, 1000000))
   }
 }
