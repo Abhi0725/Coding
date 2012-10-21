@@ -1,6 +1,4 @@
 object Sieve {
-  import scala.collection.immutable.HashSet
-
   def ints(i: Int): Stream[Int] =
     Stream.cons(i, ints(i+1))
 
