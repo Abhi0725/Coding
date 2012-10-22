@@ -1,3 +1,5 @@
+/* UVa 10705 - Problem A: The Fun Number System */
+
 #include <stdio.h>
 #include <string.h>
 

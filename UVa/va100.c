@@ -1,3 +1,5 @@
+/* UVa 100 - The 3n + 1 problem */
+
 #include <stdio.h> 
 
 int main() {
