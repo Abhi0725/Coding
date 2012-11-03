@@ -13,8 +13,6 @@ void fill_sieve() {
   fill_n(sieve, MAX, 1);
   sieve[0] = sieve[1] = 0;
   for (i = 2; i < MAX; i++)
-    sieve[i] = 1;
-  for (i = 2; i < MAX; i++)
     if (sieve[i])
       for (j = 2 * i; j < MAX; j += i)
         sieve[j] = 0;
