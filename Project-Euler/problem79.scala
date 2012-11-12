@@ -3,10 +3,10 @@ object ProjectEuler {
   type Password = List[Int]
 
   def readInput(input: scala.io.BufferedSource) : List[Hint] =
-    input.getLines.toList.map((l) => l.toList.map((c) => c.toInt - '0'))
+    input.getLines.toList.map(_.toList.map(_.toInt - '0'))
 
   def firstNumbers(hints : List[Hint]) : Hint = {
-    val count : Map[Int, Int] = hints.map((h) => h.head).groupBy(identity).mapValues((x) => x.size)
+    val count : Map[Int, Int] = hints.map(_.head).groupBy(identity).mapValues(_.size)
     count.toList.sortBy((x) => -x._2).map((x) => x._1)
   }
 

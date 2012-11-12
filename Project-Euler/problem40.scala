@@ -34,6 +34,6 @@ object ProjectEuler {
   def main(args: Array[String]) {
     val digits = get_digits(List(1, 10, 100, 1000, 10000, 100000, 1000000))
     System.out.println("Digits: " + digits.mkString(", "))
-    System.out.println("Product: " + digits.foldLeft(1)((p, i) => p*i))
+    System.out.println("Product: " + digits.foldLeft(1)(_ * _)
   }
 }
