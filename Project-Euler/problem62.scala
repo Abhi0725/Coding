@@ -1,8 +1,6 @@
 import PELib._
 
 object ProjectEuler {
-  def ints(i: Int) : Stream[Int] = i #:: ints(i+1)
-
   type Number = List[Int]
 
   def canonical(number : Number) : Number =
@@ -24,7 +22,7 @@ object ProjectEuler {
         all_numbers.map(PELib.digitsToNumber).min
       } else findSolutionWithNDigits(cubes_more_digits, n_digits + 1)
     }
-    val cubes = ints(1).map(i => PELib.getDigits(BigInt(i) pow 3))
+    val cubes = Stream.from(1).map(i => PELib.getDigits(BigInt(i) pow 3))
     findSolutionWithNDigits(cubes, 1)
   }
 

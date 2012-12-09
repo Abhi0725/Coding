@@ -1,13 +1,10 @@
 object Sieve {
-  def ints(i: Int): Stream[Int] =
-    Stream.cons(i, ints(i+1))
-
   def primes(numbers: Stream[Int]): Stream[Int] =
     Stream.cons(numbers.head,
                 primes(numbers.tail filter (i => i % numbers.head != 0)))
 
   def primes_list(n: Int) : List[Int] =
-    primes(ints(2)) take n toList
+    primes(Stream.from(2)) take n toList
 }
 
 object ProjectEuler {

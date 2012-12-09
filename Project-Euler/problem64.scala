@@ -38,7 +38,7 @@ object ProjectEuler {
 
   def main(args: Array[String]) {
     val n = 10000
-    val numbers = PELib.ints(1).filterNot(PELib.perfectSquare).takeWhile(_ <= n)
+    val numbers = Stream.from(1).filterNot(PELib.perfectSquare).takeWhile(_ <= n)
     val how_many = numbers.count(i => (representation(i).length - 1) % 2 == 1)
     System.out.println(how_many)
   }
