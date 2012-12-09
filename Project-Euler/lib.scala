@@ -21,6 +21,27 @@ object PELib {
     else false
   }
 
+  class Sieve(limit : Int) {
+    val primes = Array.tabulate(limit)(i => i != 0 && i != 1)
+    for (i <- primes.indices if primes(i))
+      for (j <- i * i.asInstanceOf[Long] until primes.length by i if (i * i) > 0)
+        primes(j.toInt) = false
+
+    def isPrime(n : Int) : Boolean = {
+      if (n < primes.length) primes(n)
+      else {
+        val limit = math.sqrt(n).toInt
+        val is_not_prime = primes.indices.take(limit).exists(i => primes(i) && n % i == 0)
+        if (is_not_prime) false
+        else {
+          val hard_limit = (primes.length - 1).asInstanceOf[Long] * (primes.length - 1)
+          if (n <= hard_limit) true
+          else throw new Error("Out of range: " + n + " (fast limit = " + limit + ", limit = " + hard_limit + ")")
+        }
+      }
+    }
+  }
+
   class PartitionFunction(limit : Int, modulo : Long) {
     val p : Array[Long] = new Array(limit + 1)
 
