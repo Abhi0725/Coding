@@ -4,3 +4,6 @@ a.out
 *.class
 \#*
 .#*
+input
+output
+*.hi
