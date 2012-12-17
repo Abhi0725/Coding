@@ -30,12 +30,6 @@ object ProjectEuler {
     }
   }
 
-  def cycleLength(continued_fraction : Stream[Int]) : Int =
-    continued_fraction match {
-      case _ #:: first #:: t => t.indexOf(first) + 1
-      case _ => 0
-    }
-
   def main(args: Array[String]) {
     val n = 10000
     val numbers = Stream.from(1).filterNot(PELib.perfectSquare).takeWhile(_ <= n)
